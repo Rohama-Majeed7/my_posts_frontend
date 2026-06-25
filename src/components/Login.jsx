@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -9,21 +9,32 @@ const Login = () => {
   const { setTokenLS, manageState } = useAuth();
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
 
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm({
     mode: "onBlur",
   });
+
+  useEffect(() => {
+    const savedEmail = localStorage.getItem("rememberedEmail");
+
+    if (savedEmail) {
+      setValue("email", savedEmail);
+      setRememberMe(true);
+    }
+  }, [setValue]);
 
   const onSubmit = async (data) => {
     setIsSubmitting(true);
 
     try {
       const res = await axios.post(
-        "https://vercel-backend-8m5d.vercel.app/user/login",
+        `${import.meta.env.VITE_API_URL}/user/login`,
         {
           email: data.email,
           password: data.password,
@@ -33,6 +44,12 @@ const Login = () => {
       const user = res.data;
 
       if (user) {
+        if (rememberMe) {
+          localStorage.setItem("rememberedEmail", data.email);
+        } else {
+          localStorage.removeItem("rememberedEmail");
+        }
+
         setTokenLS(user.token);
         toast.success(user.msg || "Login successful");
         manageState();
@@ -136,6 +153,23 @@ const Login = () => {
                 {errors.password.message}
               </p>
             )}
+          </div>
+
+          {/* Remember Me */}
+          <div className="flex items-center justify-between">
+            <label
+              htmlFor="rememberMe"
+              className="flex cursor-pointer items-center gap-2 text-xs font-medium text-slate-600"
+            >
+              <input
+                id="rememberMe"
+                type="checkbox"
+                checked={rememberMe}
+                onChange={(e) => setRememberMe(e.target.checked)}
+                className="h-4 w-4 cursor-pointer rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
+              />
+              Remember me
+            </label>
           </div>
 
           <button

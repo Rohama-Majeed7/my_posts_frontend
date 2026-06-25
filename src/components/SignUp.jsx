@@ -21,7 +21,7 @@ const SignUp = () => {
 
     try {
       const res = await axios.post(
-        "https://vercel-backend-8m5d.vercel.app/user/signup",
+        `${import.meta.env.VITE_API_URL}/user/signup`,
         {
           fullName: data.name,
           email: data.email,

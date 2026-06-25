@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
   // userAuthentication
   const userAuthentication = async () => {
     try {
-      const response = await fetch(`https://vercel-backend-8m5d.vercel.app/user/profile`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/user/profile`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
