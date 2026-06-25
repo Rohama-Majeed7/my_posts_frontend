@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -6,89 +6,193 @@ import { NavLink, useNavigate } from "react-router-dom";
 
 const SignUp = () => {
   const navigate = useNavigate();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    mode: "onBlur",
+  });
 
   const onSubmit = async (data) => {
+    setIsSubmitting(true);
+
     try {
-      const res = await axios.post("https://vercel-backend-8m5d.vercel.app/user/signup", {
-        fullName: data.name,
-        email: data.email,
-        password: data.password,
-      });
+      const res = await axios.post(
+        "https://vercel-backend-8m5d.vercel.app/user/signup",
+        {
+          fullName: data.name,
+          email: data.email,
+          password: data.password,
+        }
+      );
+
       const user = res.data;
+
       if (user) {
-        toast.success(user.msg);
+        toast.success(user.msg || "Account created successfully");
         navigate("/login");
       }
     } catch (error) {
       toast.error(error.response?.data?.message || "Signup failed");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-300 via-purple-300 to-indigo-400 flex items-center justify-center px-4">
-      <div className="w-full max-w-md bg-white rounded-3xl shadow-xl p-8 border border-purple-200">
-        <h1 className="text-4xl font-extrabold text-center text-indigo-600 mb-8">
-          Sign Up
-        </h1>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+    <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-slate-950 px-4 py-6">
+      {/* Background Decoration */}
+      <div className="absolute inset-0">
+        <div className="absolute -top-24 -left-24 h-64 w-64 rounded-full bg-indigo-500/25 blur-3xl" />
+        <div className="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-purple-500/20 blur-3xl" />
+        <div className="absolute left-1/2 top-1/2 h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-pink-500/10 blur-3xl" />
+      </div>
+
+      <section className="relative w-full max-w-sm rounded-2xl border border-white/10 bg-white p-5 shadow-2xl sm:p-6">
+        <div className="mb-5 text-center">
+          <div className="mx-auto mb-3 flex h-11 w-11 items-center justify-center rounded-xl bg-indigo-600 text-base font-bold text-white shadow-lg shadow-indigo-600/30">
+            S
+          </div>
+
+          <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-indigo-600">
+            Welcome
+          </p>
+
+          <h1 className="text-2xl font-bold text-slate-900 sm:text-3xl">
+            Create Account
+          </h1>
+
+          <p className="mt-2 text-xs leading-5 text-slate-500">
+            Enter your details below to create your account.
+          </p>
+        </div>
+
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          {/* Full Name */}
           <div>
+            <label
+              htmlFor="name"
+              className="mb-1.5 block text-sm font-medium text-slate-700"
+            >
+              Full Name
+            </label>
+
             <input
+              id="name"
               type="text"
-              placeholder="Full Name"
-              {...register("name", { required: true })}
-              className="w-full px-4 py-3 rounded-xl border border-purple-300 focus:outline-none focus:ring-2 focus:ring-purple-400 placeholder:text-gray-400"
+              placeholder="Enter your full name"
+              {...register("name", {
+                required: "Full name is required",
+                minLength: {
+                  value: 3,
+                  message: "Full name must be at least 3 characters",
+                },
+              })}
+              className={`w-full rounded-lg border bg-white px-3.5 py-2.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:ring-4 ${
+                errors.name
+                  ? "border-red-400 focus:border-red-500 focus:ring-red-100"
+                  : "border-slate-200 focus:border-indigo-500 focus:ring-indigo-100"
+              }`}
             />
+
             {errors.name && (
-              <p className="text-sm text-red-500 mt-1">Full Name is required</p>
+              <p className="mt-1.5 text-xs text-red-500">
+                {errors.name.message}
+              </p>
             )}
           </div>
 
+          {/* Email */}
           <div>
+            <label
+              htmlFor="email"
+              className="mb-1.5 block text-sm font-medium text-slate-700"
+            >
+              Email Address
+            </label>
+
             <input
+              id="email"
               type="email"
-              placeholder="Email"
-              {...register("email", { required: true })}
-              className="w-full px-4 py-3 rounded-xl border border-pink-300 focus:outline-none focus:ring-2 focus:ring-pink-400 placeholder:text-gray-400"
+              placeholder="Enter your email"
+              {...register("email", {
+                required: "Email is required",
+                pattern: {
+                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                  message: "Please enter a valid email address",
+                },
+              })}
+              className={`w-full rounded-lg border bg-white px-3.5 py-2.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:ring-4 ${
+                errors.email
+                  ? "border-red-400 focus:border-red-500 focus:ring-red-100"
+                  : "border-slate-200 focus:border-indigo-500 focus:ring-indigo-100"
+              }`}
             />
+
             {errors.email && (
-              <p className="text-sm text-red-500 mt-1">Email is required</p>
+              <p className="mt-1.5 text-xs text-red-500">
+                {errors.email.message}
+              </p>
             )}
           </div>
 
+          {/* Password */}
           <div>
+            <label
+              htmlFor="password"
+              className="mb-1.5 block text-sm font-medium text-slate-700"
+            >
+              Password
+            </label>
+
             <input
+              id="password"
               type="password"
-              placeholder="Password"
-              {...register("password", { required: true })}
-              className="w-full px-4 py-3 rounded-xl border border-indigo-300 focus:outline-none focus:ring-2 focus:ring-indigo-400 placeholder:text-gray-400"
+              placeholder="Create a strong password"
+              {...register("password", {
+                required: "Password is required",
+                minLength: {
+                  value: 6,
+                  message: "Password must be at least 6 characters",
+                },
+              })}
+              className={`w-full rounded-lg border bg-white px-3.5 py-2.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:ring-4 ${
+                errors.password
+                  ? "border-red-400 focus:border-red-500 focus:ring-red-100"
+                  : "border-slate-200 focus:border-indigo-500 focus:ring-indigo-100"
+              }`}
             />
+
             {errors.password && (
-              <p className="text-sm text-red-500 mt-1">Password is required</p>
+              <p className="mt-1.5 text-xs text-red-500">
+                {errors.password.message}
+              </p>
             )}
           </div>
 
           <button
             type="submit"
-            className="w-full py-3 rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold hover:opacity-90 transition duration-200 shadow-md"
+            disabled={isSubmitting}
+            className="mt-1 flex w-full items-center justify-center rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-indigo-600/20 transition hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-200 disabled:cursor-not-allowed disabled:opacity-70"
           >
-            Create Account
+            {isSubmitting ? "Creating account..." : "Create Account"}
           </button>
 
-          <p className="text-center text-gray-600 text-sm">
+          <p className="pt-1 text-center text-xs text-slate-500">
             Already have an account?{" "}
-            <NavLink to="/login" className="text-indigo-600 hover:underline">
+            <NavLink
+              to="/login"
+              className="font-semibold text-indigo-600 transition hover:text-indigo-700 hover:underline"
+            >
               Log in
             </NavLink>
           </p>
         </form>
-      </div>
-    </div>
+      </section>
+    </main>
   );
 };
 
