@@ -20,6 +20,8 @@
     "login": "لاگ ان",
     "enterLoginDetails": "اپنے اکاؤنٹ تک رسائی کے لیے اپنا ای میل اور پاس ورڈ درج کریں۔",
     "emailAddress": "ای میل ایڈریس",
+    "emailPlaceholder": "اپنا ای میل درج کریں",
+    "passwordPlaceholder": "اپنا پاس ورڈ درج کریں",
     "invalidEmail": "براہ کرم ایک درست ای میل ایڈریس درج کریں",
     "password": "پاس ورڈ",
     "rememberMe": "مجھے یاد رکھیں",

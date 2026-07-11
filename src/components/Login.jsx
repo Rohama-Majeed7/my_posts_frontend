@@ -191,7 +191,7 @@ const Login = () => {
               to="/"
               className="font-semibold text-indigo-600 transition hover:text-indigo-700 hover:underline"
             ></NavLink>
-            {t("login.signUp")}
+            {t("login.signup")}
           </p>
         </form>
       </section>
