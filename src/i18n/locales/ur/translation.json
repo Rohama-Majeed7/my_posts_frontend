@@ -14,5 +14,19 @@
     "creatingAccount": "اکاؤنٹ بنا رہا ہے...",
     "alreadyHaveAccount": "پہلے سے اکاؤنٹ ہے؟ لاگ ان کریں",
     "login": "لاگ ان کریں"
+  },
+  "login": {
+    "welcomeBack": "واپس خوش آمدید",
+    "login": "لاگ ان",
+    "enterLoginDetails": "اپنے اکاؤنٹ تک رسائی کے لیے اپنا ای میل اور پاس ورڈ درج کریں۔",
+    "emailAddress": "ای میل ایڈریس",
+    "invalidEmail": "براہ کرم ایک درست ای میل ایڈریس درج کریں",
+    "password": "پاس ورڈ",
+    "rememberMe": "مجھے یاد رکھیں",
+    "dontHaveAccount": "اکاؤنٹ نہیں ہے؟ سائن اپ کریں",
+    "signup": "سائن اپ کریں",
+    "loggingIn": "لاگ ان ہو رہا ہے...",
+    "emailRequired": "ای میل درکار ہے",
+    "passwordRequired": "پاس ورڈ درکار ہے"
   }
 }

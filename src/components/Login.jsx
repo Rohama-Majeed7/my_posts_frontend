@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useAuth } from "../context/Auth";
 import { NavLink, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 const Login = () => {
   const { setTokenLS, manageState } = useAuth();
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
+  const { t } = useTranslation();
 
   const {
     register,
@@ -38,7 +41,7 @@ const Login = () => {
         {
           email: data.email,
           password: data.password,
-        }
+        },
       );
 
       const user = res.data;
@@ -72,21 +75,22 @@ const Login = () => {
       </div>
 
       <section className="relative w-full max-w-sm rounded-2xl border border-white/10 bg-white p-5 shadow-2xl sm:p-6">
+        <LanguageSwitcher />
         <div className="mb-5 text-center">
           <div className="mx-auto mb-3 flex h-11 w-11 items-center justify-center rounded-xl bg-indigo-600 text-base font-bold text-white shadow-lg shadow-indigo-600/30">
             L
           </div>
 
           <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-indigo-600">
-            Welcome back
+            {t("login.welcomeBack")}
           </p>
 
           <h1 className="text-2xl font-bold text-slate-900 sm:text-3xl">
-            Login
+            {t("login.login")}
           </h1>
 
           <p className="mt-2 text-xs leading-5 text-slate-500">
-            Enter your email and password to access your account.
+            {t("login.enterLoginDetails")}
           </p>
         </div>
 
@@ -97,18 +101,18 @@ const Login = () => {
               htmlFor="email"
               className="mb-1.5 block text-sm font-medium text-slate-700"
             >
-              Email Address
+              {t("login.emailAddress")}
             </label>
 
             <input
               id="email"
               type="email"
-              placeholder="Enter your email"
+              placeholder={t("login.emailPlaceholder")}
               {...register("email", {
-                required: "Email is required",
+                required: t("login.emailRequired"),
                 pattern: {
                   value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                  message: "Please enter a valid email address",
+                  message: t("login.invalidEmail"),
                 },
               })}
               className={`w-full rounded-lg border bg-white px-3.5 py-2.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:ring-4 ${
@@ -131,15 +135,15 @@ const Login = () => {
               htmlFor="password"
               className="mb-1.5 block text-sm font-medium text-slate-700"
             >
-              Password
+              {t("login.password")}
             </label>
 
             <input
               id="password"
               type="password"
-              placeholder="Enter your password"
+              placeholder={t("login.passwordPlaceholder")}
               {...register("password", {
-                required: "Password is required",
+                required: t("login.passwordRequired"),
               })}
               className={`w-full rounded-lg border bg-white px-3.5 py-2.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:ring-4 ${
                 errors.password
@@ -168,7 +172,7 @@ const Login = () => {
                 onChange={(e) => setRememberMe(e.target.checked)}
                 className="h-4 w-4 cursor-pointer rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
               />
-              Remember me
+              {t("login.rememberMe")}
             </label>
           </div>
 
@@ -177,17 +181,17 @@ const Login = () => {
             disabled={isSubmitting}
             className="mt-1 flex w-full items-center justify-center rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-indigo-600/20 transition hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-200 disabled:cursor-not-allowed disabled:opacity-70"
           >
-            {isSubmitting ? "Logging in..." : "Login"}
+            {isSubmitting ? t("login.loggingIn") : t("login.login")}
           </button>
 
           <p className="pt-1 text-center text-xs text-slate-500">
-            Don&apos;t have an account?{" "}
+            {t("login.dontHaveAccount")}
+
             <NavLink
               to="/"
               className="font-semibold text-indigo-600 transition hover:text-indigo-700 hover:underline"
-            >
-              Sign Up
-            </NavLink>
+            ></NavLink>
+            {t("login.signUp")}
           </p>
         </form>
       </section>
