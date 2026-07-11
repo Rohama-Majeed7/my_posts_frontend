@@ -1,0 +1,17 @@
+{
+  "signup": {
+    "welcome": "Welcome",
+    "createAccount": "Create Account",
+    "enterDetails": "Enter your details below to create your account.",
+    "fullName": "Full Name",
+    "fullNameRequired": "Full name is required",
+    "emailAddress": "Email Address",
+    "emailRequired": "Email is required",
+    "password": "Password",
+    "passwordRequired": "Password is required",
+    "passwordTooShort": "Password must be at least 6 characters",
+    "creatingAccount": "Creating account...",
+    "alreadyHaveAccount": "Already have an account?",
+    "login": "Login"
+  }
+}

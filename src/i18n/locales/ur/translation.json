@@ -1,0 +1,18 @@
+{
+  "signup": {
+    "welcome": "خوش آمدید",
+    "createAccount": "اکاؤنٹ بنائیں",
+    "enterDetails": "اپنا اکاؤنٹ بنانے کے لیے نیچے اپنی تفصیلات درج کریں۔",
+    "fullName": "مکمل نام",
+    "fullNameRequired": "مکمل نام درکار ہے",
+    "emailAddress": "ای میل ایڈریس",
+    "emailRequired": "ای میل درکار ہے",
+    "invalidEmail": "براہ کرم ایک درست ای میل ایڈریس درج کریں",
+    "password": "پاس ورڈ",
+    "passwordRequired": "پاس ورڈ درکار ہے",
+    "passwordTooShort": "پاس ورڈ کم از کم 6 حروف کا ہونا چاہیے",
+    "creatingAccount": "اکاؤنٹ بنا رہا ہے...",
+    "alreadyHaveAccount": "پہلے سے اکاؤنٹ ہے؟ لاگ ان کریں",
+    "login": "لاگ ان کریں"
+  }
+}

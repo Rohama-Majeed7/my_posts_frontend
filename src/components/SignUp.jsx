@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { NavLink, useNavigate } from "react-router-dom";
-
+import { useTranslation } from "react-i18next";
+import LanguageSwitcher from "./LanguageSwitcher"
 const SignUp = () => {
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
-
+  const { t } = useTranslation();
   const {
     register,
     handleSubmit,
@@ -26,7 +27,7 @@ const SignUp = () => {
           fullName: data.name,
           email: data.email,
           password: data.password,
-        }
+        },
       );
 
       const user = res.data;
@@ -52,21 +53,22 @@ const SignUp = () => {
       </div>
 
       <section className="relative w-full max-w-sm rounded-2xl border border-white/10 bg-white p-5 shadow-2xl sm:p-6">
+        <LanguageSwitcher />
         <div className="mb-5 text-center">
           <div className="mx-auto mb-3 flex h-11 w-11 items-center justify-center rounded-xl bg-indigo-600 text-base font-bold text-white shadow-lg shadow-indigo-600/30">
             S
           </div>
 
           <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-indigo-600">
-            Welcome
+            {t("signup.welcome")}
           </p>
 
           <h1 className="text-2xl font-bold text-slate-900 sm:text-3xl">
-            Create Account
+            {t("signup.createAccount")}
           </h1>
 
           <p className="mt-2 text-xs leading-5 text-slate-500">
-            Enter your details below to create your account.
+            {t("signup.enterDetails")}
           </p>
         </div>
 
@@ -77,15 +79,15 @@ const SignUp = () => {
               htmlFor="name"
               className="mb-1.5 block text-sm font-medium text-slate-700"
             >
-              Full Name
+              {t("signup.fullName")}
             </label>
 
             <input
               id="name"
               type="text"
-              placeholder="Enter your full name"
+              placeholder={t("signup.fullName")}
               {...register("name", {
-                required: "Full name is required",
+                required: t("signup.fullNameRequired"),
                 minLength: {
                   value: 3,
                   message: "Full name must be at least 3 characters",
@@ -111,18 +113,18 @@ const SignUp = () => {
               htmlFor="email"
               className="mb-1.5 block text-sm font-medium text-slate-700"
             >
-              Email Address
+              {t("signup.emailAddress")}
             </label>
 
             <input
               id="email"
               type="email"
-              placeholder="Enter your email"
+              placeholder={t("signup.emailAddress")}
               {...register("email", {
-                required: "Email is required",
+                required: t("signup.emailRequired"),
                 pattern: {
                   value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                  message: "Please enter a valid email address",
+                  message: t("signup.invalidEmail"),
                 },
               })}
               className={`w-full rounded-lg border bg-white px-3.5 py-2.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:ring-4 ${
@@ -145,18 +147,18 @@ const SignUp = () => {
               htmlFor="password"
               className="mb-1.5 block text-sm font-medium text-slate-700"
             >
-              Password
+              {t("signup.password")}
             </label>
 
             <input
               id="password"
               type="password"
-              placeholder="Create a strong password"
+              placeholder={t("signup.password")}
               {...register("password", {
-                required: "Password is required",
+                required: t("signup.passwordRequired"),
                 minLength: {
                   value: 6,
-                  message: "Password must be at least 6 characters",
+                  message: t("signup.passwordTooShort"),
                 },
               })}
               className={`w-full rounded-lg border bg-white px-3.5 py-2.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:ring-4 ${
@@ -178,16 +180,16 @@ const SignUp = () => {
             disabled={isSubmitting}
             className="mt-1 flex w-full items-center justify-center rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-indigo-600/20 transition hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-200 disabled:cursor-not-allowed disabled:opacity-70"
           >
-            {isSubmitting ? "Creating account..." : "Create Account"}
+            {isSubmitting ? t("signup.creatingAccount") : t("signup.createAccount")}
           </button>
 
           <p className="pt-1 text-center text-xs text-slate-500">
-            Already have an account?{" "}
+            {t("signup.alreadyHaveAccount")}{" "}
             <NavLink
               to="/login"
               className="font-semibold text-indigo-600 transition hover:text-indigo-700 hover:underline"
             >
-              Log in
+              {t("signup.login")}
             </NavLink>
           </p>
         </form>
