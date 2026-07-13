@@ -128,7 +128,7 @@ const {t} = useTranslation();
 
           <div>
             <p className="text-xs font-semibold uppercase tracking-wide text-indigo-600">
-              {t("editPost.PostContent")}
+              {t("editPost.postContent")}
             </p>
 
             <h1 className="text-xl font-bold text-slate-900 sm:text-2xl">
@@ -168,7 +168,7 @@ const {t} = useTranslation();
                 htmlFor="content"
                 className="mb-1.5 block text-sm font-medium text-slate-700"
               >
-                {t("editPost.content")}
+                {t("editPost.postContent")}
               </label>
 
               <textarea
