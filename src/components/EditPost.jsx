@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../context/Auth";
 import uploadProfilePic from "../helper/uploadiamge";
-
+import { useTranslation } from "react-i18next";
 const EditPost = () => {
   const { manageState, token } = useAuth();
   const { id } = useParams();
   const navigate = useNavigate();
-
+const {t} = useTranslation();
   const [post, setPost] = useState(null);
   const [selectedImage, setSelectedImage] = useState("");
   const [isLoading, setIsLoading] = useState(true);
@@ -128,15 +128,15 @@ const EditPost = () => {
 
           <div>
             <p className="text-xs font-semibold uppercase tracking-wide text-indigo-600">
-              Update Post
+              {t("editPost.editPost")}
             </p>
 
             <h1 className="text-xl font-bold text-slate-900 sm:text-2xl">
-              Edit Post
+              {t("editPost.editPost")}
             </h1>
 
             <p className="mt-1 text-xs text-slate-500">
-              Update your content or change the attached image.
+              {t("editPost.editPostDesc")}
             </p>
           </div>
         </div>
@@ -146,18 +146,18 @@ const EditPost = () => {
             <div className="mx-auto mb-3 h-7 w-7 animate-spin rounded-full border-4 border-slate-200 border-t-indigo-600" />
 
             <p className="text-sm font-medium text-slate-600">
-              Loading post...
+              {t("editPost.loadingPost")}
             </p>
           </div>
         ) : !post ? (
           <div className="rounded-xl border border-red-100 bg-red-50 p-4 text-center">
-            <p className="text-sm font-medium text-red-600">Post not found.</p>
+            <p className="text-sm font-medium text-red-600">{t("editPost.postNotFound")}</p>
 
             <NavLink
               to="/profile"
               className="mt-4 inline-flex items-center justify-center rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-indigo-700"
             >
-              Back to Profile
+              {t("editPost.goBack")}
             </NavLink>
           </div>
         ) : (
@@ -168,18 +168,18 @@ const EditPost = () => {
                 htmlFor="content"
                 className="mb-1.5 block text-sm font-medium text-slate-700"
               >
-                Post Content
+                {t("editPost.content")}
               </label>
 
               <textarea
                 id="content"
                 rows="4"
-                placeholder="Edit your post..."
+                placeholder={t("editPost.contentPlaceholder")}
                 {...register("content", {
-                  required: "Content is required",
+                  required: t("editPost.contentRequired"),
                   minLength: {
                     value: 3,
-                    message: "Content must be at least 3 characters",
+                    message: t("editPost.contentTooShort"),
                   },
                 })}
                 className={`w-full resize-none rounded-xl border bg-white px-3.5 py-2.5 text-sm leading-6 text-slate-900 outline-none transition placeholder:text-slate-400 focus:ring-4 ${
@@ -202,7 +202,7 @@ const EditPost = () => {
                 htmlFor="image"
                 className="mb-1.5 block text-sm font-medium text-slate-700"
               >
-                Change Image
+                {t("editPost.image")}
               </label>
 
               <div className="flex flex-col gap-3 rounded-xl border border-slate-200 bg-slate-50 p-3 sm:flex-row sm:items-center sm:justify-between">
@@ -215,17 +215,17 @@ const EditPost = () => {
                     />
                   ) : (
                     <div className="flex h-16 w-20 shrink-0 items-center justify-center rounded-lg bg-slate-200 text-xs font-medium text-slate-500">
-                      No Image
+                      {t("editPost.noImage")}
                     </div>
                   )}
 
                   <div>
                     <p className="text-sm font-semibold text-slate-700">
-                      {selectedImage ? "Image attached" : "No image attached"}
+                      {selectedImage ? t("editPost.imageAttached") : t("editPost.noImageAttached")}
                     </p>
 
                     <p className="mt-0.5 text-xs text-slate-500">
-                      Upload a new image to replace the current one.
+                      {t("editPost.uploadNewImage")}
                     </p>
                   </div>
                 </div>
@@ -234,7 +234,7 @@ const EditPost = () => {
                   htmlFor="image"
                   className="inline-flex cursor-pointer items-center justify-center rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-indigo-700"
                 >
-                  {isUploading ? "Uploading..." : "Choose Image"}
+                  {isUploading ? t("editPost.uploadingImage") : t("editPost.chooseImage")}
                 </label>
 
                 <input
@@ -253,7 +253,7 @@ const EditPost = () => {
                   onClick={() => setSelectedImage("")}
                   className="mt-2 text-xs font-semibold text-red-500 transition hover:text-red-600 hover:underline"
                 >
-                  Remove image
+                  {t("editPost.removeImage")}
                 </button>
               )}
             </div>
@@ -264,7 +264,7 @@ const EditPost = () => {
                 to="/profile"
                 className="inline-flex w-full items-center justify-center rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 focus:outline-none focus:ring-4 focus:ring-slate-100 sm:w-auto"
               >
-                Cancel
+                {t("editPost.cancel")}
               </NavLink>
 
               <button
@@ -272,7 +272,7 @@ const EditPost = () => {
                 disabled={isUpdating || isUploading}
                 className="inline-flex w-full items-center justify-center rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-indigo-600/20 transition hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-200 disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto"
               >
-                {isUpdating ? "Saving..." : "Save Changes"}
+                {isUpdating ? t("editPost.saving") : t("editPost.save")}
               </button>
             </div>
           </form>

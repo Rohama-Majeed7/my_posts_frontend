@@ -119,21 +119,22 @@ const UserData = () => {
             <p className="text-sm text-slate-400">{t("dashboard.dashboard")}</p>
 
             <h1 className="mt-1 text-xl font-bold text-white sm:text-2xl">
-              {t("dashboard.hiUser")}
+              {t("dashboard.hiUser")} {authUser?.fullName || "User"}
             </h1>
 
             <p className="mt-1 max-w-xl text-sm text-slate-400">
               {t("dashboard.dashboardDesc")}
             </p>
           </div>
-
-          <Link
-            to="/logout"
-            className="inline-flex items-center justify-center rounded-lg bg-red-500 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-red-600 focus:outline-none focus:ring-4 focus:ring-red-500/30"
-          >
-            {t("dashboard.logout")}
-          </Link>
-          <LanguageSwitcher/>
+          <div>
+            <Link
+              to="/logout"
+              className="inline-flex items-center justify-center rounded-lg bg-red-500 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-red-600 focus:outline-none focus:ring-4 focus:ring-red-500/30"
+            >
+              {t("dashboard.logout")}
+            </Link>
+            <LanguageSwitcher />
+          </div>
         </header>
 
         {/* Create Post Card */}
@@ -224,7 +225,9 @@ const UserData = () => {
               disabled={isCreating || isUploading}
               className="flex w-full items-center justify-center rounded-xl bg-indigo-600 px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-indigo-600/20 transition hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-200 disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto sm:px-8"
             >
-              {isCreating ? t("dashboard.creatingPost") : t("dashboard.createPostBtn")}
+              {isCreating
+                ? t("dashboard.creatingPost")
+                : t("dashboard.createPostBtn")}
             </button>
           </form>
         </section>
@@ -238,7 +241,10 @@ const UserData = () => {
               </h2>
 
               <p className="text-sm text-slate-400">
-                {userData.length} {userData.length === 1 ? t("dashboard.post") : t("dashboard.posts")}{" "}
+                {userData.length}{" "}
+                {userData.length === 1
+                  ? t("dashboard.post")
+                  : t("dashboard.posts")}{" "}
                 {t("dashboard.createdByYou")}
               </p>
             </div>
@@ -314,7 +320,9 @@ const UserData = () => {
                         disabled={deletingId === post._id}
                         className="inline-flex items-center justify-center rounded-lg bg-red-500 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-red-600 focus:outline-none focus:ring-4 focus:ring-red-500/30 disabled:cursor-not-allowed disabled:opacity-70"
                       >
-                        {deletingId === post._id ? t("dashboard.deleting") : t("dashboard.delete")}
+                        {deletingId === post._id
+                          ? t("dashboard.deleting")
+                          : t("dashboard.delete")}
                       </button>
                     </div>
                   </article>
