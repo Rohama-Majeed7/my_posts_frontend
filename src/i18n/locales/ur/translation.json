@@ -25,10 +25,35 @@
     "invalidEmail": "براہ کرم ایک درست ای میل ایڈریس درج کریں",
     "password": "پاس ورڈ",
     "rememberMe": "مجھے یاد رکھیں",
-    "dontHaveAccount": "اکاؤنٹ نہیں ہے؟ سائن اپ کریں",
+    "dontHaveAccount":"اکاؤنٹ نہیں ہے؟ یں",
     "signup": "سائن اپ کریں",
     "loggingIn": "لاگ ان ہو رہا ہے...",
     "emailRequired": "ای میل درکار ہے",
     "passwordRequired": "پاس ورڈ درکار ہے"
-  }
+  },
+  "dashboard": {
+  "dashboard": "ڈیش بورڈ",
+  "hiUser": "ہائے، رحمٰ ماجد 👋",
+  "dashboardDesc": "ایک جگہ سے اپنے پوسٹس بنائیں، منظم کریں اور اپ ڈیٹ کریں۔",
+  "logout": "لاگ آؤٹ",
+  "createPost": "پوسٹ بنائیں",
+  "shareThoughts": "اپنے خیالات شیئر کریں اور اختیاری طور پر ایک تصویر بھی منسلک کریں۔",
+  "postContent": "پوسٹ کا مواد",
+  "postContentPlaceholder": "اپنی پوسٹ لکھیں...",
+  "postContentRequired": "پوسٹ کا مواد درکار ہے",
+  "postContentTooShort": "پوسٹ کا مواد کم از کم 3 حروف کا ہونا چاہیے",
+  "uploadImage": "تصویر اپ لوڈ کریں",
+  "uploadingImage": "تصویر اپ لوڈ ہو رہی ہے...",
+  "imagePreview": "تصویر کا پیش نظارہ",
+  "createPostBtn": "پوسٹ بنائیں",
+  "yourPosts": "آپ کی پوسٹس",
+  "postCreated": "1 پوسٹ بنائی گئی",
+  "noPostsYet": "ابھی تک کوئی پوسٹ نہیں ہے",
+  "startCreatingPosts": "اوپر 'پوسٹ بنائیں' بٹن پر کلک کرکے پوسٹس بنانا شروع کریں۔",
+  "editedPost": "یہ میری ایڈٹ کی گئی پوسٹ ہے",
+  "edit": "ترمیم",
+  "delete": "حذف کریں",
+  "viewPost": "پوسٹ دیکھیں",
+  "deleting": "حذف کر رہا ہے"
+}
 }

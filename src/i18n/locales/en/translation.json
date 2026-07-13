@@ -30,5 +30,34 @@
     "loggingIn": "Logging in...",
     "emailRequired": "Email is required",
     "passwordRequired": "Password is required"
-  }
+  },
+
+  "dashboard": {
+  "dashboard": "Dashboard",
+  "hiUser": "Hi, Rohama Majeed 👋",
+  "dashboardDesc": "Create, manage, and update your posts from one clean place.",
+  "logout": "Logout",
+  "createPost": "Create a Post",
+  "shareThoughts": "Share your thoughts and optionally attach an image.",
+  "postContent": "Post Content",
+  "postContentPlaceholder": "Write your post...",
+  "postContentRequired": "Post content is required",
+  "postContentTooShort": "Post content must be at least 3 characters",
+  "uploadImage": "Upload Image",
+  "uploadingImage": "Uploading image...",
+  "imagePreview": "Image Preview",
+  "createPostBtn": "Create Post",
+  "yourPosts": "Your Posts",
+  "postCreated": "1 post created",
+  "editedPost": "This is my edited post",
+  "edit": "Edit",
+  "delete": "Delete",
+  "viewPost": "View Post",
+  "deleting": "Deleting...",
+  "post": "post",
+  "posts": "posts",
+  "createdByYou": "created by you",
+  "noPostsYet": "No posts yet",
+  "startCreatingPosts": "Start creating posts by clicking the 'Create Post' button above."
+}
 }

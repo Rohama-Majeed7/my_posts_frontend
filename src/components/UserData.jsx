@@ -1,14 +1,15 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useAuth } from "../context/Auth";
 import uploadProfilePic from "../helper/uploadiamge";
-
+import { useTranslation } from "react-i18next";
+import LanguageSwitcher from "./LanguageSwitcher";
 const UserData = () => {
   const { authUser, token, manageState } = useAuth();
-
+  const { t } = useTranslation();
   const userData = authUser?.posts || [];
 
   const [selectedImage, setSelectedImage] = useState(null);
@@ -69,7 +70,7 @@ const UserData = () => {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
 
       if (res.status === 200) {
@@ -95,7 +96,7 @@ const UserData = () => {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
 
       if (res.status === 200) {
@@ -115,18 +116,14 @@ const UserData = () => {
         {/* Header */}
         <header className="mb-6 flex flex-col gap-4 rounded-2xl border border-white/10 bg-white/5 p-4 shadow-xl shadow-black/10 backdrop-blur sm:flex-row sm:items-center sm:justify-between sm:p-5">
           <div>
-            <p className="text-sm text-slate-400">Dashboard</p>
+            <p className="text-sm text-slate-400">{t("dashboard.dashboard")}</p>
 
             <h1 className="mt-1 text-xl font-bold text-white sm:text-2xl">
-              Hi,{" "}
-              <span className="text-indigo-400">
-                {authUser?.fullName || "User"}
-              </span>{" "}
-              👋
+              {t("dashboard.hiUser")}
             </h1>
 
             <p className="mt-1 max-w-xl text-sm text-slate-400">
-              Create, manage, and update your posts from one clean place.
+              {t("dashboard.dashboardDesc")}
             </p>
           </div>
 
@@ -134,19 +131,20 @@ const UserData = () => {
             to="/logout"
             className="inline-flex items-center justify-center rounded-lg bg-red-500 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-red-600 focus:outline-none focus:ring-4 focus:ring-red-500/30"
           >
-            Logout
+            {t("dashboard.logout")}
           </Link>
+          <LanguageSwitcher/>
         </header>
 
         {/* Create Post Card */}
         <section className="mb-8 rounded-2xl border border-white/10 bg-white p-5 text-slate-900 shadow-2xl sm:p-6">
           <div className="mb-5">
             <h2 className="text-lg font-bold text-slate-900 sm:text-xl">
-              Create a Post
+              {t("dashboard.createPost")}
             </h2>
 
             <p className="mt-1 text-sm text-slate-500">
-              Share your thoughts and optionally attach an image.
+              {t("dashboard.shareThoughts")}
             </p>
           </div>
 
@@ -156,24 +154,25 @@ const UserData = () => {
                 htmlFor="content"
                 className="mb-1.5 block text-sm font-medium text-slate-700"
               >
-                Post Content
+                {t("dashboard.postContent")}
               </label>
 
               <textarea
                 id="content"
                 rows="4"
-                placeholder="Write your post..."
+                placeholder={t("dashboard.postContentPlaceholder")}
                 {...register("content", {
-                  required: "Post content is required",
+                  required: t("dashboard.postContentRequired"),
                   minLength: {
                     value: 3,
-                    message: "Post content must be at least 3 characters",
+                    message: t("dashboard.postContentTooShort"),
                   },
                 })}
-                className={`w-full resize-none rounded-xl border bg-white px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:ring-4 ${errors.content
+                className={`w-full resize-none rounded-xl border bg-white px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:ring-4 ${
+                  errors.content
                     ? "border-red-400 focus:border-red-500 focus:ring-red-100"
                     : "border-slate-200 focus:border-indigo-500 focus:ring-indigo-100"
-                  }`}
+                }`}
               />
 
               {errors.content && (
@@ -188,7 +187,7 @@ const UserData = () => {
                 htmlFor="image"
                 className="mb-1.5 block text-sm font-medium text-slate-700"
               >
-                Upload Image
+                {t("dashboard.uploadImage")}
               </label>
 
               <input
@@ -201,14 +200,14 @@ const UserData = () => {
 
               {isUploading && (
                 <p className="mt-2 text-xs font-medium text-indigo-600">
-                  Uploading image...
+                  {t("dashboard.uploadingImage")}
                 </p>
               )}
 
               {selectedImage && (
                 <div className="mt-4 overflow-hidden rounded-xl border border-slate-200 bg-slate-50 p-3">
                   <p className="mb-2 text-xs font-medium text-slate-500">
-                    Image Preview
+                    {t("dashboard.imagePreview")}
                   </p>
 
                   <img
@@ -225,7 +224,7 @@ const UserData = () => {
               disabled={isCreating || isUploading}
               className="flex w-full items-center justify-center rounded-xl bg-indigo-600 px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-indigo-600/20 transition hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-200 disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto sm:px-8"
             >
-              {isCreating ? "Creating Post..." : "Create Post"}
+              {isCreating ? t("dashboard.creatingPost") : t("dashboard.createPostBtn")}
             </button>
           </form>
         </section>
@@ -235,12 +234,12 @@ const UserData = () => {
           <div className="mb-4 flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <h2 className="text-lg font-bold text-white sm:text-xl">
-                Your Posts
+                {t("dashboard.yourPosts")}
               </h2>
 
               <p className="text-sm text-slate-400">
-                {userData.length} {userData.length === 1 ? "post" : "posts"}{" "}
-                created
+                {userData.length} {userData.length === 1 ? t("dashboard.post") : t("dashboard.posts")}{" "}
+                {t("dashboard.createdByYou")}
               </p>
             </div>
           </div>
@@ -252,17 +251,16 @@ const UserData = () => {
               </div>
 
               <h3 className="text-lg font-semibold text-white">
-                No posts created yet
+                {t("dashboard.noPostsYet")}
               </h3>
 
               <p className="mt-2 text-sm text-slate-400">
-                Start by creating your first post above.
+                {t("dashboard.startCreatingPosts")}
               </p>
             </div>
           ) : (
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               {userData.map((post) => {
-
                 return (
                   <article
                     key={post._id}
@@ -307,7 +305,7 @@ const UserData = () => {
                         to={`/profile/${post._id}`}
                         className="inline-flex items-center justify-center rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-200"
                       >
-                        Edit
+                        {t("dashboard.edit")}
                       </NavLink>
 
                       <button
@@ -316,7 +314,7 @@ const UserData = () => {
                         disabled={deletingId === post._id}
                         className="inline-flex items-center justify-center rounded-lg bg-red-500 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-red-600 focus:outline-none focus:ring-4 focus:ring-red-500/30 disabled:cursor-not-allowed disabled:opacity-70"
                       >
-                        {deletingId === post._id ? "Deleting..." : "Delete"}
+                        {deletingId === post._id ? t("dashboard.deleting") : t("dashboard.delete")}
                       </button>
                     </div>
                   </article>

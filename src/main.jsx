@@ -4,11 +4,14 @@ import App from "./App.jsx";
 import "./index.css";
 import "./i18n"
 import { AuthProvider } from "./context/Auth.jsx";
+import LanguageProvider from "./context/LanguageProvider.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <AuthProvider>
-      <App />
-    </AuthProvider>
+    <LanguageProvider>
+      <AuthProvider>
+        <App />
+      </AuthProvider>
+    </LanguageProvider>
   </React.StrictMode>
 );
