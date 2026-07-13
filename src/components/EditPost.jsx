@@ -128,7 +128,7 @@ const {t} = useTranslation();
 
           <div>
             <p className="text-xs font-semibold uppercase tracking-wide text-indigo-600">
-              {t("editPost.editPost")}
+              {t("editPost.PostContent")}
             </p>
 
             <h1 className="text-xl font-bold text-slate-900 sm:text-2xl">
@@ -202,7 +202,7 @@ const {t} = useTranslation();
                 htmlFor="image"
                 className="mb-1.5 block text-sm font-medium text-slate-700"
               >
-                {t("editPost.image")}
+                {t("editPost.postImage")}
               </label>
 
               <div className="flex flex-col gap-3 rounded-xl border border-slate-200 bg-slate-50 p-3 sm:flex-row sm:items-center sm:justify-between">

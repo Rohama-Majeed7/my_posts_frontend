@@ -65,6 +65,7 @@
   "editPost": "Edit Post",
   "editPostDesc": "Update your content or change the attached image.",
   "postContent": "Post Content",
+  "postImage": "Post Image",
   "loadingPost": "Loading post...",
   "noPostFound": "No post found",
   "contentPlaceholder": "Edit your post...",

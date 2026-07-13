@@ -126,7 +126,7 @@ const UserData = () => {
               {t("dashboard.dashboardDesc")}
             </p>
           </div>
-          <div>
+          <div className="flex  gap-2 flex-row items-center">
             <Link
               to="/logout"
               className="inline-flex items-center justify-center rounded-lg bg-red-500 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-red-600 focus:outline-none focus:ring-4 focus:ring-red-500/30"
